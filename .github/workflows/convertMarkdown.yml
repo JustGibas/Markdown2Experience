@@ -1,0 +1,33 @@
+name: Convert Markdown to HTML
+
+on:
+  push:
+    paths:
+      - 'articles/**.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Convert Markdown to HTML
+      run: node scripts/convertMarkdownToHtml.js articles/sample-article.md
+
+    - name: Commit changes
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add articles/output.html
+        git commit -m 'Automated conversion of Markdown to HTML'
+        git push
