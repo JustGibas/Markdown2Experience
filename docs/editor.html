@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Editor</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Markdown Editor</h1>
+    </header>
+    <main>
+        <textarea id="markdown-input" placeholder="Write your Markdown here..."></textarea>
+        <div id="preview"></div>
+        <button id="generate-article">Generate Article</button>
+    </main>
+    <script>
+        const md = window.markdownit();
+        const input = document.getElementById('markdown-input');
+        const preview = document.getElementById('preview');
+
+        input.addEventListener('input', () => {
+            const markdown = input.value;
+            const html = md.render(markdown);
+            preview.innerHTML = html;
+        });
+
+        document.getElementById('generate-article').addEventListener('click', () => {
+            const markdown = input.value;
+            fetch('/api/generate-article', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ markdown })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Article generated successfully!');
+            })
+            .catch(error => {
+                console.error('Error generating article:', error);
+            });
+        });
+    </script>
+</body>
+</html>

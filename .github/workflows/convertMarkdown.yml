@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'articles/**.md'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -24,10 +25,19 @@ jobs:
     - name: Convert Markdown to HTML
       run: node scripts/convertMarkdownToHtml.js articles/sample-article.md
 
+    - name: Generate index.json
+      run: node scripts/generateIndexJson.js
+
     - name: Commit changes
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add articles/output.html
-        git commit -m 'Automated conversion of Markdown to HTML'
+        git add docs/articles/output.html docs/articles/index.json
+        git commit -m 'Automated conversion of Markdown to HTML and index.json generation'
         git push
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs
