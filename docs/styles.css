@@ -1,0 +1,49 @@
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+section {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  scroll-snap-align: start;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+section.active {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+section.inactive {
+  opacity: 0.5;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+audio {
+  display: block;
+  margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+  section {
+    margin: 10px;
+    padding: 10px;
+  }
+}
+
+@supports not (scroll-snap-align: start) {
+  section {
+    scroll-margin-top: 20px;
+  }
+}

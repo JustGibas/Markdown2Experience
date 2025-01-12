@@ -4,6 +4,7 @@ const markdownIt = require('markdown-it');
 const md = new markdownIt();
 const axios = require('axios');
 const ffmpeg = require('fluent-ffmpeg');
+const { logError, validateApiKey, handleApiRequest, logGenerationStatus } = require('./errorHandling');
 
 const convertMarkdownToHtml = async (filePath) => {
   const markdown = fs.readFileSync(filePath, 'utf-8');

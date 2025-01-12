@@ -37,9 +37,28 @@ const logGenerationStatus = (status, details) => {
   fs.appendFileSync('generation.log', logMessage, 'utf-8');
 };
 
+const validateAudioFiles = (sections, audioFiles) => {
+  sections.forEach((section, index) => {
+    const audioFile = audioFiles[index];
+    if (!audioFile) {
+      const error = new Error(`Missing audio file for section ${index + 1}`);
+      logError('Audio Validation Error', error);
+      throw error;
+    }
+  });
+};
+
+const handleAudioGenerationError = (error, text) => {
+  logError('Audio Generation Error', error);
+  console.error(`Failed to generate audio for text: "${text}". Retrying...`);
+  // Implement retry logic or fallback text handling here
+};
+
 module.exports = {
   logError,
   validateApiKey,
   handleApiRequest,
-  logGenerationStatus
+  logGenerationStatus,
+  validateAudioFiles,
+  handleAudioGenerationError
 };

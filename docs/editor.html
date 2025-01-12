@@ -38,6 +38,8 @@
             })
             .then(response => response.json())
             .then(data => {
+                const articleHtml = data.html;
+                preview.innerHTML = articleHtml;
                 alert('Article generated successfully!');
             })
             .catch(error => {
