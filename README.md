@@ -1,2 +1,1 @@
-# AutoTTSArticle
-A repository for enhancing Markdown to HTML conversion with TTS and compression
+This repository is empty. Any task executed on it should be considered a new capability and needs to be created.
