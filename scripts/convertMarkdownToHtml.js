@@ -22,24 +22,8 @@ const convertMarkdownToHtml = async (filePath) => {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Converted Markdown</title>
-      <style>
-        body {
-          font-family: Arial, sans-serif;
-          line-height: 1.6;
-          margin: 0;
-          padding: 0;
-        }
-        section {
-          margin: 20px;
-          padding: 20px;
-          border: 1px solid #ccc;
-          border-radius: 8px;
-        }
-        img {
-          max-width: 100%;
-          height: auto;
-        }
-      </style>
+      <link rel="stylesheet" href="../styles.css">
+      <script src="../player.js"></script>
     </head>
     <body>
       ${sections}
