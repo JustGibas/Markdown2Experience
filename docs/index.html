@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Markdown2Experience</h1>
+        <button onclick="location.href='editor.html'">Write New Article</button>
+    </header>
+    <main>
+        <section id="recent-articles">
+            <h2>Recent Articles</h2>
+            <ul id="recent-articles-list"></ul>
+        </section>
+        <section id="all-articles">
+            <h2>All Articles</h2>
+            <ul id="all-articles-list"></ul>
+        </section>
+    </main>
+    <script>
+        fetch('articles/index.json')
+            .then(response => response.json())
+            .then(data => {
+                const recentArticlesList = document.getElementById('recent-articles-list');
+                const allArticlesList = document.getElementById('all-articles-list');
+
+                data.recent.forEach(article => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `<a href="articles/${article}">${article}</a>`;
+                    recentArticlesList.appendChild(listItem);
+                });
+
+                data.all.forEach(article => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `<a href="articles/${article}">${article}</a>`;
+                    allArticlesList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Error fetching articles:', error));
+    </script>
+</body>
+</html>
