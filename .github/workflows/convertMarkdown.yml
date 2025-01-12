@@ -28,6 +28,9 @@ jobs:
     - name: Generate index.json
       run: node scripts/generateIndexJson.js
 
+    - name: Print index.json contents
+      run: cat docs/articles/index.json
+
     - name: Commit changes
       run: |
         git config --global user.name 'github-actions[bot]'

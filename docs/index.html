@@ -29,16 +29,17 @@
                 const recentArticlesList = document.getElementById('recent-articles-list');
                 const allArticlesList = document.getElementById('all-articles-list');
 
-                data.recent.forEach(article => {
+                data.forEach(article => {
                     const listItem = document.createElement('li');
-                    listItem.innerHTML = `<a href="articles/${article}">${article}</a>`;
-                    recentArticlesList.appendChild(listItem);
+                    listItem.innerHTML = `<a href="${article.path}">${article.title}</a> - ${article.date}`;
+                    allArticlesList.appendChild(listItem);
                 });
 
-                data.all.forEach(article => {
+                const recentArticles = data.slice(0, 5);
+                recentArticles.forEach(article => {
                     const listItem = document.createElement('li');
-                    listItem.innerHTML = `<a href="articles/${article}">${article}</a>`;
-                    allArticlesList.appendChild(listItem);
+                    listItem.innerHTML = `<a href="${article.path}">${article.title}</a> - ${article.date}`;
+                    recentArticlesList.appendChild(listItem);
                 });
             })
             .catch(error => console.error('Error fetching articles:', error));
