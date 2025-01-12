@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
   playPauseButton.innerHTML = 'Play';
   playPauseButton.addEventListener('click', () => {
     const currentAudio = audioElements[currentAudioIndex];
-    if (currentAudio.paused) {
+    if (currentAudio && !currentAudio.paused) {
       currentAudio.play();
       playPauseButton.innerHTML = 'Pause';
-    } else {
+    } else if (currentAudio) {
       currentAudio.pause();
       playPauseButton.innerHTML = 'Play';
     }
@@ -20,14 +20,18 @@ document.addEventListener('DOMContentLoaded', () => {
   rewindButton.innerHTML = 'Rewind';
   rewindButton.addEventListener('click', () => {
     const currentAudio = audioElements[currentAudioIndex];
-    currentAudio.currentTime -= 10;
+    if (currentAudio && currentAudio.currentTime !== undefined) {
+      currentAudio.currentTime -= 10;
+    }
   });
 
   const fastForwardButton = document.createElement('button');
   fastForwardButton.innerHTML = 'Fast Forward';
   fastForwardButton.addEventListener('click', () => {
     const currentAudio = audioElements[currentAudioIndex];
-    currentAudio.currentTime += 10;
+    if (currentAudio && currentAudio.currentTime !== undefined) {
+      currentAudio.currentTime += 10;
+    }
   });
 
   const progressBar = document.createElement('progress');
@@ -36,7 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   audioElements.forEach((audio, index) => {
     audio.addEventListener('timeupdate', () => {
-      progressBar.value = (audio.currentTime / audio.duration) * 100;
+      if (audio.duration) {
+        progressBar.value = (audio.currentTime / audio.duration) * 100;
+      }
     });
 
     audio.addEventListener('ended', () => {
