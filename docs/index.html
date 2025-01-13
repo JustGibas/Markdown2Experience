@@ -4,7 +4,170 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* --- General Styling --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            color: #e0e0e0;
+            background-color: #121212;
+            overflow: hidden; /* Hide scrollbars if possible */
+        }
+        /* Hide scrollbars for WebKit browsers */
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* --- Header and Footer --- */
+        header, footer {
+            text-align: center;
+            padding: 20px;
+            background: #333;
+            color: #fff;
+        }
+
+        /* --- Main Content & Scroll Snap --- */
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+        main::-webkit-scrollbar {
+            width: 0;
+            background: transparent;
+        }
+
+        /* --- Section Styling --- */
+        section {
+            scroll-snap-align: center;
+            margin: 0 auto 40px;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0.5;
+            transition: opacity 0.5s, transform 0.5s;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        section.active {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* --- Headings & Paragraphs --- */
+        h1, h2 {
+            margin: 0 0 20px;
+            text-align: center;
+            color: #ffffff;
+        }
+        h2 {
+            font-size: 1.8em;
+        }
+        p {
+            text-align: center;
+            margin: 0 0 20px;
+            max-width: 700px;
+        }
+
+        /* --- Figures, Images, and Captions --- */
+        figure {
+            text-align: center;
+            margin: 20px auto;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 3px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        figcaption {
+            margin-top: 10px;
+            font-style: italic;
+            color: #bbb;
+        }
+
+        /* --- Progress Bar for Audio UI --- */
+        #progress-bar {
+            width: 100%;
+            height: 5px;
+            background: #333;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        #progress-bar-inner {
+            height: 100%;
+            width: 0;
+            background: #bb86fc;
+            transition: width 0.2s ease-out;
+        }
+
+        /* --- Controls --- */
+        #controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        #controls .button-group {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        #controls button {
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 18px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #controls button svg {
+            width: 100%;
+            height: 100%;
+        }
+        #controls button:hover {
+            color: #bb86fc;
+        }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+            main {
+                padding: 10px;
+            }
+        }
+    </style>
     <script src="player.js"></script>
 </head>
 <body>

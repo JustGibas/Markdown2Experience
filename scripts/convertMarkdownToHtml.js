@@ -15,6 +15,11 @@ const convertMarkdownToHtml = async (filePath) => {
     return `<section>${section}<audio src="section-${index}.mp3" controls></audio><img src="image-${index}.png" alt="Placeholder image"></section>`;
   }).join('');
 
+  // Read styles from articles/example.html
+  const exampleHtml = fs.readFileSync(path.join(__dirname, '../articles/example.html'), 'utf-8');
+  const styleMatch = exampleHtml.match(/<style>([\s\S]*?)<\/style>/);
+  const styles = styleMatch ? styleMatch[1] : '';
+
   const htmlTemplate = `
     <!DOCTYPE html>
     <html lang="en">
@@ -22,7 +27,9 @@ const convertMarkdownToHtml = async (filePath) => {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Converted Markdown</title>
-      <link rel="stylesheet" href="../styles.css">
+      <style>
+        ${styles}
+      </style>
       <script src="../player.js"></script>
     </head>
     <body>
